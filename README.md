@@ -3,7 +3,7 @@ GoBYTE multi masternode(this is not the official script , use at your own risk)
 
 ```bash
 git clone https://github.com/jcww247/GoBYTE-multi-masternode
-cd Gobyte-multi-masternode
+cd gobyte-multi-masternode
 chmod +x multinode_SAP.sh
 ```
 replace the # in the next command with number of nodes to setup
