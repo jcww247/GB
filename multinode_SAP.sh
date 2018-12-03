@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASE="/home/sap"
-PORT=70209
+PORT=12455
 # Execute options
 ARGS=$(getopt -o "hp:n:c:r:wsudx" -l "help,count:,net" -n "multinode_SAP.sh" -- "$@");
 
@@ -106,7 +106,7 @@ else
 fi
 
 echo -e "Installing and setting up firewall to allow ingress on port 8120"
-  ufw allow 70209/tcp comment "GoBYTE MN port" >/dev/null
+  ufw allow 12455/tcp comment "GoBYTE MN port" >/dev/null
   ufw allow ssh comment "SSH" >/dev/null 2>&1
   ufw limit ssh/tcp >/dev/null 2>&1
   ufw default allow outgoing >/dev/null 2>&1
