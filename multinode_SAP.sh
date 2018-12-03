@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASE="/home/sap"
-PORT=5500
+PORT=70209
 # Execute options
 ARGS=$(getopt -o "hp:n:c:r:wsudx" -l "help,count:,net" -n "multinode_SAP.sh" -- "$@");
 
@@ -106,20 +106,20 @@ else
 fi
 
 echo -e "Installing and setting up firewall to allow ingress on port 8120"
-  ufw allow 5500/tcp comment "Shekel-Jew MN port" >/dev/null
+  ufw allow 70209/tcp comment "GoBYTE MN port" >/dev/null
   ufw allow ssh comment "SSH" >/dev/null 2>&1
   ufw limit ssh/tcp >/dev/null 2>&1
   ufw default allow outgoing >/dev/null 2>&1
   echo "y" | ufw enable >/dev/null 2>&1
 
 #Download Latest
-echo 'Downloading latest version:  wget https://github.com/shekeltechnologies/JewNew/releases/download/1.4.0/shekel-1.4.0-x86_64-linux.tar.gz' &&  wget https://github.com/shekeltechnologies/JewNew/releases/download/1.4.0/shekel-1.4.0-x86_64-linux.tar.gz
+echo 'Downloading latest version:  wget https://github.com/gobytecoin/gobyte/releases/download/v0.12.2.4/GoByteCore-0.12.2.4_Linux64.tar.gz' &&  wget https://github.com/gobytecoin/gobyte/releases/download/v0.12.2.4/GoByteCore-0.12.2.4_Linux64.tar.gz
 			
 #Install Latest
 echo '==========================================================================='
-echo 'Extract new methuselah: \n# tar -xf shekel-1.4.0-x86_64-linux.tar.gz -C /usr/local/bin' && tar -xf shekel-1.4.0-x86_64-linux.tar.gz -C /usr/local/bin
+echo 'Extract new methuselah: \n# tar -xzf GoByteCore-0.12.2.4_Linux64.tar.gz -C /usr/local/bin' && tar -xzf GoByteCore-0.12.2.4_Linux64.tar.gz -C /usr/local/bin
 
-rm shekel-1.4.0-x86_64-linux.tar.gz
+rm tar -xzf GoByteCore-0.12.2.4_Linux64.tar.gz
 
 # our new mnode unpriv user acc is added
 if id "sap" >/dev/null 2>&1; then
@@ -151,7 +151,7 @@ for NUM in $(seq 1 ${count}); do
     if [ ! -d "$BASE"/multinode/SAP_"${NUM}" ]; then
         echo "creating data directory $BASE/multinode/SAP_${NUM}" 
         mkdir -p "$BASE"/multinode/SAP_"${NUM}" 
-		#Generating Random Password for Shekel/Jew JSON RPC
+		#Generating Random Password for GoBYTE JSON RPC
 		USER=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 		USERPASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 		read -e -p "MasterNode Key for SAP_"${NUM}": " MKey
@@ -165,37 +165,55 @@ maxconnections=256
 masternode=1
 masternodeprivkey=$MKey
 promode=1
-addnode=188.240.24.236
-addnode=60.51.32.209
-addnode=206.189.104.231
-addnode=80.211.143.148
-addnode=202.182.109.8
-addnode=199.247.21.147	
-addnode=209.250.251.243
-addnode=45.76.61.85
-addnode=45.77.179.151
-addnode=185.30.238.122
-addnode=95.216.156.83
-addnode=62.75.206.169
-addnode=84.131.180.166" |sudo tee -a "$BASE"/multinode/SAP_"${NUM}"/shekel.conf >/dev/null
-echo 'bind=192.168.1.'"${NUM}"':'"$PORT" >> "$BASE"/multinode/SAP_"${NUM}"/shekel.conf
-echo 'rpcport=8119'"${NUM}" >> "$BASE"/multinode/SAP_"${NUM}"/shekel.conf
+addnode=45.32.101.119
+addnode=206.189.159.65
+addnode=149.28.29.18
+addnode=31.211.71.205
+addnode=45.76.38.25
+addnode=146.185.163.186	
+addnode=149.28.122.56
+addnode=103.72.162.239
+addnode=45.77.232.81
+addnode=142.93.96.234
+addnode=139.180.218.25
+addnode=208.97.140.229
+addnode=142.93.5.22
+addnode=199.247.13.3
+addnode=95.216.109.196
+addnode=45.77.133.160
+addnode=212.47.242.142
+addnode=172.107.168.70
+addnode=45.32.151.3
+addnode=80.240.23.227
+addnode=206.189.124.160
+addnode=87.106.153.89
+addnode=95.216.109.193
+addnode=142.93.48.76
+addnode=159.203.114.76
+addnode=142.93.239.148
+addnode=75.102.39.145
+addnode=80.240.31.18
+addnode=75.102.39.110
+addnode=174.138.0.251
+addnode=209.250.246.136" |sudo tee -a "$BASE"/multinode/SAP_"${NUM}"/gobyte.conf >/dev/null
+echo 'bind=192.168.1.'"${NUM}"':'"$PORT" >> "$BASE"/multinode/SAP_"${NUM}"/gobyte.conf
+echo 'rpcport=8119'"${NUM}" >> "$BASE"/multinode/SAP_"${NUM}"/gobyte.conf
 
 echo 'ip addr del 192.168.1.'"${NUM}"'/32 dev '"$dev2"':'"${NUM}" >> start_multinode.sh
 echo 'ip addr add 192.168.1.'"${NUM}"'/32 dev '"$dev2"':'"${NUM}" >> start_multinode.sh
-echo "runuser -l sap -c 'shekeld -daemon -pid=$BASE/multinode/SAP_${NUM}/shekel.pid -conf=$BASE/multinode/SAP_${NUM}/shekel.conf -datadir=$BASE/multinode/SAP_${NUM}'" >> start_multinode.sh
+echo "runuser -l sap -c 'gobyted -daemon -pid=$BASE/multinode/SAP_${NUM}/gobyte.pid -conf=$BASE/multinode/SAP_${NUM}/gobyte.conf -datadir=$BASE/multinode/SAP_${NUM}'" >> start_multinode.sh
 
 echo 'ip addr del 192.168.1.'"${NUM}"'/32 dev '"$dev2"':'"${NUM}" >> stop_multinode.sh
-echo "shekel-cli -conf=$BASE/multinode/SAP_${NUM}/shekel.conf -datadir=$BASE/multinode/SAP_${NUM} stop" >> stop_multinode.sh
+echo "gobyte-cli -conf=$BASE/multinode/SAP_${NUM}/goybte.conf -datadir=$BASE/multinode/SAP_${NUM} stop" >> stop_multinode.sh
 
 echo "echo '====================================================${NUM}========================================================================'" >> mn_status.sh
-echo "shekel-cli -conf=$BASE/multinode/SAP_${NUM}/shekel.conf -datadir=$BASE/multinode/SAP_${NUM} masternode status" >> mn_status.sh
+echo "gobyte-cli -conf=$BASE/multinode/SAP_${NUM}/gobyte.conf -datadir=$BASE/multinode/SAP_${NUM} masternode status" >> mn_status.sh
 
 echo "echo '====================================================${NUM}========================================================================'" >> mn_getinfo.sh
-echo "shekel-cli -conf=$BASE/multinode/SAP_${NUM}/shekel.conf -datadir=$BASE/multinode/SAP_${NUM} getinfo" >> mn_getinfo.sh
+echo "gobyte-cli -conf=$BASE/multinode/SAP_${NUM}/gobyte.conf -datadir=$BASE/multinode/SAP_${NUM} getinfo" >> mn_getinfo.sh
 # When Blocks are synched, it copies the wallet into the remaining Mns Wallet automatically
 echo "echo 'stop MN${NUM}'"
-    echo "shekel-cli -conf=$BASE/multinode/SAP_${NUM}/shekel.conf -datadir=$BASE/multinode/SAP_${NUM} stop" >> mn_sync_block.sh
+    echo "gobyte-cli -conf=$BASE/multinode/SAP_${NUM}/gobyte.conf -datadir=$BASE/multinode/SAP_${NUM} stop" >> mn_sync_block.sh
     if (( ${NUM} > 1)) ; then
         echo "echo 'copy MN1 blocks folder into masternode ${NUM}'" >> mn_sync_block.sh
         echo "sudo yes | cp -R $BASE/multinode/SAP_1/blocks/ $BASE/multinode/SAP_${NUM}/blocks" >> mn_sync_block.sh
