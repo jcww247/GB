@@ -1,9 +1,9 @@
-# Shekel-multi-masternode
-Shekel multi masternode(this is not the official script , use at your own risk)
+# GoBYTE-multi-masternode
+GoBYTE multi masternode(this is not the official script , use at your own risk)
 
 ```bash
-git clone https://github.com/jcww247/Shekel-multi-masternode.git
-cd Shekel-multi-masternode
+git clone https://github.com/jcww247/GoBYTE-multi-masternode
+cd Gobyte-multi-masternode
 chmod +x multinode_SAP.sh
 ```
 replace the # in the next command with number of nodes to setup
@@ -36,6 +36,6 @@ script base on https://github.com/methuselah-coin/MultiNode_IPv4
 thanks to https://twitter.com/dasche_sc for showing me the ropes
 
 # Donation
-Shekel address: JUhYffW62XgLAZK4SoxuNru6zhQdnzmMzo
+Shekel address: GMjm2MDYMjft9roa3xVaqiAoJxAZvL7wDh
 # The Person Who Helped has BTC Here till i get mine :)
-BTC  address: 35AyP8VLpYAxamuJWJ1eB3KCifpEbPmidR
+BTC  address: coming soon!
