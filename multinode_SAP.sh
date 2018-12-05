@@ -117,7 +117,7 @@ echo 'Downloading latest version:  wget https://github.com/gobytecoin/gobyte/rel
 			
 #Install Latest
 echo '==========================================================================='
-echo 'Extract new methuselah: \n# tar -xzf GoByteCore-0.12.2.4_Linux64/usr/local/bin.tar.gz -C /usr/local/bin' && tar -xzf GoByteCore-0.12.2.4_Linux64/usr/local/bin.tar.gz -C /usr/local/bin
+echo 'Extract new methuselah: \n# tar -xzf GoByteCore-0.12.2.4_Linux64.tar.gz -C /usr/local/bin' && tar -xzf GoByteCore-0.12.2.4_Linux64.tar.gz -C /usr/local/bin
 
 rm tar -xzf GoByteCore-0.12.2.4_Linux64.tar.gz
 
